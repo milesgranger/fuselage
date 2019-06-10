@@ -40,6 +40,11 @@ impl<'a, T> DataFrame<'a, T>
         self.data.insert(index, row)
     }
 
+    /// DataFrame length
+    pub fn len(&self) -> usize {
+        self.data.len()
+    }
+
     /// Construct an empty dataframe
     pub fn new() -> Self {
         DataFrame {
@@ -52,8 +57,6 @@ impl<'a, T> DataFrame<'a, T>
     pub fn push(&mut self, row: T) {
         self.data.push(row)
     }
-
-
 
 }
 
