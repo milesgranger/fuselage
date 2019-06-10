@@ -32,7 +32,7 @@ fn _basic_cart() -> DataFrame<'static, Product> {
 #[test]
 fn sum() {
     let cart = _basic_cart();
-    let total: u32 = sum!(cart.price);
+    let total: u32 = sum!(&cart.price);
     assert_eq!(total, 24);
 }
 
@@ -48,14 +48,14 @@ fn map() {
         product.price *= 2;
     }
     let _: Vec<()> = map!(&mut cart, mutate).collect();
-    let new_total: u32 = sum!(cart.price);
+    let new_total: u32 = sum!(&cart.price);
     assert_eq!(new_total, 48);
 
 
     // Map a mutable ref inline
     let mut cart = _basic_cart();
     let _: Vec<()> = map!(&mut cart, |mut row| {row.price += 2;}).collect();
-    let new_total: u32 = sum!(cart.price);
+    let new_total: u32 = sum!(&cart.price);
     assert_eq!(new_total, 30);
 
 }

@@ -18,12 +18,12 @@
 ///
 /// let mut df: DataFrame<Record> = DataFrame::from(vec![Record::new(), Record::new()]);
 ///
-/// let v: usize = sum!(df.age);
+/// let v: usize = sum!(&df.age);
 /// assert_eq!(v, 60);
 /// ```
 #[macro_export]
 macro_rules! sum {
-    ($df:ident.$column:ident) => {
+    (&$df:ident.$column:ident) => {
         $df.data.iter().map(|row| row.$column).sum()
     };
 }
@@ -54,7 +54,7 @@ macro_rules! sum {
 ///
 /// // Map function which will take values of the column by mutable reference
 /// let _: Vec<()> = map_column!(&mut df.age, |n: &mut usize| { *n *= 2 }).collect();
-/// let v: usize = sum!(df.age);
+/// let v: usize = sum!(&df.age);
 /// assert_eq!(v, 120);
 ///
 /// // Map function which will take values of the column by owned values
@@ -116,7 +116,7 @@ macro_rules! map_column {
 ///
 /// // Map a function which takes a mutable reference:
 /// let _: Vec<()> = map!(&mut df, |row| { row.age *= 3 }).collect();
-/// let new_sum: usize = sum!(df.age);
+/// let new_sum: usize = sum!(&df.age);
 /// assert_eq!(new_sum, 180);
 ///
 /// // Map a function which takes ownership of `df`'s rows:

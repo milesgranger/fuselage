@@ -26,5 +26,5 @@ fn main() {
         ]
     );
 
-    let _total: u32 = sum!(cart.price);
+    let _total: u32 = sum!(&cart.price);
 }
