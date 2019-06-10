@@ -4,4 +4,4 @@ pub mod dataframe;
 pub mod io;
 
 pub use crate::dataframe::DataFrame;
-pub use crate::io::{Reader, ReaderBuilder};
+pub use crate::io::{CsvReader, CsvReaderBuilder};

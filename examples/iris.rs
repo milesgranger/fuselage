@@ -1,9 +1,9 @@
 
 use serde::Deserialize;
-use derive_builder::Builder;
-use fuselage::{DataFrame, Reader, ReaderBuilder};
+use fuselage::{DataFrame, CsvReaderBuilder};
 
 
+// This represents a row within the dataframe
 #[derive(Deserialize)]
 struct Flower {
     sepal_length: f32,
@@ -16,12 +16,14 @@ struct Flower {
 
 fn main() -> Result<(), Box<std::error::Error>> {
 
-    let reader = ReaderBuilder::default()
+    // Construct the reader
+    let reader = CsvReaderBuilder::default()
         .delimiter(b',')
         .has_headers(true)
         .path(format!("{}/data/iris.csv", env!("CARGO_MANIFEST_DIR")))
         .build()?;
 
+    // Read the dataframe
     let df: DataFrame<Flower> = reader.read()?;
 
     assert_eq!(df.len(), 150);

@@ -7,7 +7,7 @@ use crate::DataFrame;
 
 
 #[derive(Builder, Default)]
-pub struct Reader
+pub struct CsvReader
 {
     path: String,
 
@@ -24,7 +24,7 @@ pub struct Reader
     has_headers: bool,
 }
 
-impl Reader {
+impl CsvReader {
 
     /// Read a CSV file into a [`DataFrame`] where each column represents a Series
     /// supports automatic decompression of gzipped files if they end with `.gz`
