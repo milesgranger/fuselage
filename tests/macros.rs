@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use serde::Deserialize;
 use fuselage::{DataFrame, sum, map};
 
@@ -36,8 +38,8 @@ fn sum() {
 
 #[test]
 fn map() {
-    let mut cart = _basic_cart();
-    let new_prices: Vec<u32> = map!(cart, |row| row.price * 2).collect();
+    let cart = _basic_cart();
+    let new_prices: Vec<u32> = map!(&cart, |row| row.price * 2).collect();
     assert_eq!(new_prices, vec![40, 4, 4]);
 
     // map a mutable ref function
