@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use serde::Deserialize;
 use fuselage::{DataFrame, sum};
 
@@ -24,5 +26,5 @@ fn main() {
         ]
     );
 
-    let total: u32 = sum!(cart.price);
+    let _total: u32 = sum!(cart.price);
 }
