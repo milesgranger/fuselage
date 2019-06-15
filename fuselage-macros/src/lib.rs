@@ -8,6 +8,8 @@ pub fn sum(args: proc_macro::TokenStream, input: proc_macro::TokenStream) -> pro
     let input = syn::parse_macro_input!(input as syn::ItemFn);
 
     let fn_name = &input.ident;
+    let fn_body = &input.block;
+    let fn_return_type = &input.decl.output;
 
     let lit = match &args.lit {
         syn::Lit::Str(s) => s,
@@ -15,8 +17,9 @@ pub fn sum(args: proc_macro::TokenStream, input: proc_macro::TokenStream) -> pro
     };
 
     let result = quote! {
-        fn #fn_name () {
+        fn #fn_name () #fn_return_type {
             println!("{}", #lit);
+            #fn_body
         }
     };
 

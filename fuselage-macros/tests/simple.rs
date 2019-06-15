@@ -1,5 +1,6 @@
 use fuselage_macros::sum;
 
+
 #[test]
 fn df_sum() {
 
@@ -8,6 +9,7 @@ fn df_sum() {
         4
     }
 
-    my_simple_function();
+    let v = my_simple_function();
+    assert_eq!(v, 4);
 
 }
