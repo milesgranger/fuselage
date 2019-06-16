@@ -26,6 +26,17 @@ macro_rules! sum {
     (&$df:ident.$column:ident) => {
         $df.data.iter().map(|row| row.$column).sum()
     };
+    (&$df:ident[$column:tt]) => {
+        {
+            use fuselage_macros::sum as _sum;
+
+            #[_sum($column)]
+            fn _test(df: DataFrame<Product>) -> u32 {
+                df.data.iter().map(|row| row.NAME).sum()
+            }
+            _test($df)
+        }
+    }
 }
 
 /// Map a function over a specific column of the dataframe

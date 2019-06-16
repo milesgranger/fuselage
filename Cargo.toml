@@ -4,11 +4,9 @@ version = "0.1.0"
 authors = ["Miles Granger <miles59923@gmail.com>"]
 edition = "2018"
 
-[lib]
-proc-macro = true
-
 [dependencies]
 serde = { version = "^1", features = ["derive"] }
 csv = "^1"
 derive_builder = "^0.7"
 flate2 = "^1"
+fuselage-macros = { version = "*", path = "fuselage-macros" }

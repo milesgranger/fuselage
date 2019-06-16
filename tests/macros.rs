@@ -34,6 +34,10 @@ fn sum() {
     let cart = _basic_cart();
     let total: u32 = sum!(&cart.price);
     assert_eq!(total, 24);
+
+    let cart = _basic_cart();
+    let total: u32 = sum!(&cart["price"]);
+    assert_eq!(total, 24);
 }
 
 #[test]
