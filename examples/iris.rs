@@ -14,6 +14,8 @@ struct Flower {
 }
 
 
+
+
 fn main() -> Result<(), Box<std::error::Error>> {
 
     // Construct the reader
@@ -25,6 +27,9 @@ fn main() -> Result<(), Box<std::error::Error>> {
 
     // Read the dataframe
     let df: DataFrame<Flower> = reader.read()?;
+
+    // Get the groups of species
+    let species: GroupBy<Flower> = groupby!(&df.species);
 
     assert_eq!(df.len(), 150);
 

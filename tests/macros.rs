@@ -1,10 +1,10 @@
 #![allow(dead_code)]
 
-use serde::Deserialize;
-use fuselage::{DataFrame, sum, map};
+use serde::{Deserialize, Serialize};
+use fuselage::{DataFrame, sum, map, groupby, GroupBy};
 
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 struct Product {
     id: u32,
     name: String,
@@ -34,10 +34,14 @@ fn sum() {
     let cart = _basic_cart();
     let total: u32 = sum!(&cart.price);
     assert_eq!(total, 24);
+}
 
+#[test]
+fn groupby() {
     let cart = _basic_cart();
-    let total: u32 = sum!(&cart["price"]);
-    assert_eq!(total, 24);
+    let groups: GroupBy<String, Product> = groupby!(&cart.name);
+
+
 }
 
 #[test]

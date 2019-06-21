@@ -26,17 +26,16 @@ macro_rules! sum {
     (&$df:ident.$column:ident) => {
         $df.data.iter().map(|row| row.$column).sum()
     };
-    (&$df:ident[$column:tt]) => {
-        {
-            use fuselage_macros::sum as _sum;
+}
 
-            #[_sum($column)]
-            fn _test(df: DataFrame<Product>) -> u32 {
-                df.data.iter().map(|row| row.NAME).sum()
-            }
-            _test($df)
-        }
-    }
+#[macro_export]
+macro_rules! groupby {
+    (&$df:ident.$column:ident) => {
+        use std::collections::HashMap;
+        let mut groups = HashMap::new();
+
+
+    };
 }
 
 /// Map a function over a specific column of the dataframe

@@ -6,7 +6,7 @@ edition = "2018"
 
 [dependencies]
 serde = { version = "^1", features = ["derive"] }
+serde-value = "*"
 csv = "^1"
 derive_builder = "^0.7"
 flate2 = "^1"
-fuselage-macros = { version = "*", path = "fuselage-macros" }

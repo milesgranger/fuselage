@@ -1,5 +1,14 @@
 use serde::Deserialize;
 use std::marker::PhantomData;
+use std::collections::HashMap;
+use std::hash::Hash;
+
+
+pub struct GroupBy<H, T>
+    where H: Hash
+{
+    pub groups: HashMap<H, Vec<T>>
+}
 
 
 pub struct DataFrame<'a, T>
