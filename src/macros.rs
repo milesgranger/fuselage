@@ -51,10 +51,25 @@ macro_rules! group_op {
 
 }
 
+
+/// Access attrs of a hashmap by identifier. ie map.attr -> map["attr"]
+#[macro_export]
+macro_rules! hma {
+
+    // by reference
+    (&$map:ident.$attr:ident) => {
+        &$map[stringify!($attr)]
+    };
+
+    // ownership
+    ($map:ident.$attr:ident) => {
+        $map[stringify!($attr)]
+    }
+}
+
 #[macro_export]
 macro_rules! groupby {
     (&$df:ident.$column:ident) => {
-
         {
             use std::collections::HashMap;
 

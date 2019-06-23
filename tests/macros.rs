@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
 use serde::{Deserialize, Serialize};
-use fuselage::{DataFrame, sum, map, groupby, GroupBy, group_op};
+use fuselage::{DataFrame, sum, map, groupby, GroupBy, group_op, hma};
 use std::collections::HashMap;
 
 
@@ -43,6 +43,7 @@ fn groupby() {
     let groups: GroupBy<String, &Product> = groupby!(&cart.name);
 
     let price_total: HashMap<&str, u32> = group_op!(&groups.price.sum());
+    assert_eq!(hma!(price_total.basketball), 20);
 }
 
 #[test]
