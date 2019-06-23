@@ -10,6 +10,13 @@ pub struct GroupBy<H, T>
     pub groups: HashMap<H, Vec<T>>
 }
 
+impl<H, T> GroupBy<H, T>
+    where H: Hash
+{
+    pub fn new(groups: HashMap<H, Vec<T>>) -> Self {
+        GroupBy { groups }
+    }
+}
 
 pub struct DataFrame<'a, T>
     where

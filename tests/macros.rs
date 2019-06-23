@@ -1,7 +1,8 @@
 #![allow(dead_code)]
 
 use serde::{Deserialize, Serialize};
-use fuselage::{DataFrame, sum, map, groupby, GroupBy};
+use fuselage::{DataFrame, sum, map, groupby, GroupBy, group_op};
+use std::collections::HashMap;
 
 
 #[derive(Deserialize, Serialize)]
@@ -39,9 +40,9 @@ fn sum() {
 #[test]
 fn groupby() {
     let cart = _basic_cart();
-    let groups: GroupBy<String, Product> = groupby!(&cart.name);
+    let groups: GroupBy<String, &Product> = groupby!(&cart.name);
 
-
+    let price_total: HashMap<&str, u32> = group_op!(&groups.price.sum());
 }
 
 #[test]

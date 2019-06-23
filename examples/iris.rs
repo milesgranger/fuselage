@@ -1,6 +1,6 @@
-
+use std::collections::HashMap;
 use serde::Deserialize;
-use fuselage::{DataFrame, CsvReaderBuilder};
+use fuselage::{DataFrame, CsvReaderBuilder, GroupBy, groupby, group_op};
 
 
 // This represents a row within the dataframe
@@ -27,11 +27,15 @@ fn main() -> Result<(), Box<std::error::Error>> {
 
     // Read the dataframe
     let df: DataFrame<Flower> = reader.read()?;
+    assert_eq!(df.len(), 150);
 
     // Get the groups of species
-    let species: GroupBy<Flower> = groupby!(&df.species);
+    let species_groups: GroupBy<String, &Flower> = groupby!(&df.species);
 
-    assert_eq!(df.len(), 150);
+    let petal_width_sums: HashMap<&str, f32> = group_op!(&species_groups.petal_width.sum());
+    assert_eq!(petal_width_sums["setosa"], 12.199999);
+    assert_eq!(petal_width_sums["versicolor"], 66.299995);
+    assert_eq!(petal_width_sums["virginica"], 101.30002);
 
     Ok(())
 }

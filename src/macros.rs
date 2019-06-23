@@ -28,13 +28,48 @@ macro_rules! sum {
     };
 }
 
+
+/// various shortcut rules for doing operations on `GroupBy`s.
+#[macro_export]
+macro_rules! group_op {
+
+    // group_op!(&groups.attr.sum());
+    (&$groups:ident.$column:ident.sum()) => {
+        {
+            use std::collections::HashMap;
+            use std::iter::FromIterator;
+            HashMap::from_iter(
+                $groups
+                    .groups
+                    .iter()
+                    .map(|(key, val)| {
+                        (key.as_str(), val.iter().map(|row| row.$column).sum())
+                    })
+            )
+        }
+    }
+
+}
+
 #[macro_export]
 macro_rules! groupby {
     (&$df:ident.$column:ident) => {
-        use std::collections::HashMap;
-        let mut groups = HashMap::new();
 
+        {
+            use std::collections::HashMap;
 
+            let mut groups = HashMap::new();
+            $df.data
+                .iter()
+                .for_each(|row| {
+                    groups
+                        .entry(row.$column.clone())
+                        .or_insert(Vec::new())
+                        .push(row.clone());
+                });
+
+            GroupBy::new(groups)
+        }
     };
 }
 
